@@ -1,6 +1,8 @@
 package jpaddlegame.com;
 
 import java.applet.Applet;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.HeadlessException;
 
@@ -16,7 +18,7 @@ public class Game extends JApplet implements Runnable {
 	private Thread mainThread;
 	private int i;
 	
-	
+	private BackBuffer backBuffer;
 	
 	
 	/**
@@ -36,6 +38,10 @@ public class Game extends JApplet implements Runnable {
 		// Start the main thread.
 		mainThread.start();
 
+		Dimension dim = this.getSize();
+		
+		backBuffer = new BackBuffer(dim.width, dim.height, this);
+		
 		i = 0;
 	}
 
@@ -59,7 +65,13 @@ public class Game extends JApplet implements Runnable {
 	}
 	
 	public void paint(Graphics g){
-		g.drawString("i = " + i, 10, 20);
+		
+		Graphics bbG = backBuffer.getGraphics();
+		
+		bbG.drawString("i = " + i, 10, 20);
+		
+		g.drawImage(backBuffer.getBackBuffer(), 0, 0, Color.white, null);
+		backBuffer.clear();
 	}
 
 }
