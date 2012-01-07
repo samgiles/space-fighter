@@ -14,7 +14,7 @@ import javax.vecmath.Vector2d;
  * @author Sam
  *
  */
-public class Camera implements Drawable{
+public class Camera {
 	
 	int sizeX;
 	int sizeY;
@@ -78,13 +78,6 @@ public class Camera implements Drawable{
 	public Rectangle toRectangle() {
 		return new Rectangle((int)worldPosition.getX(), (int)worldPosition.getY(), sizeX, sizeY);
 	}
-	
-	@Override
-	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
+
 	
 }
