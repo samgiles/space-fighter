@@ -9,4 +9,9 @@ package jpaddlegame.com.game;
  */
 public class World {
 	
+	private Map map;
+	
+	Camera camera;
+	
+	
 }
