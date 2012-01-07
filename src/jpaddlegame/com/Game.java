@@ -40,7 +40,7 @@ public class Game extends JApplet implements Runnable {
 
 		Dimension dim = this.getSize();
 		
-		backBuffer = new BackBuffer(dim.width, dim.height, this);
+		backBuffer = new BackBuffer(this);
 		
 		i = 0;
 	}
