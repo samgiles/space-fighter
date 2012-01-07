@@ -2,7 +2,6 @@ package jpaddlegame.com;
 
 import java.awt.*;
 import java.beans.*;
-
 /**
  * A simple BackBuffer that is used to buffer the current frame before drawing to the main window.
  * @author Samuel Giles

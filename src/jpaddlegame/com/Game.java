@@ -37,8 +37,6 @@ public class Game extends JApplet implements Runnable {
 		mainThread = new Thread(this);
 		// Start the main thread.
 		mainThread.start();
-
-		Dimension dim = this.getSize();
 		
 		backBuffer = new BackBuffer(this);
 		
