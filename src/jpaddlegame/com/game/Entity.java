@@ -18,11 +18,33 @@ public class Entity implements Serializable, Drawable, Spatial, Updateable{
 	
 	private int imageId;
 	
+	public Entity(){
+		
+	}
 	
+	public Entity(int imageId){
+		entityImage = ContentStore.getStore().getResource(imageId);
+	}
 	
+	public int getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(int imageId) {
+		this.imageId = imageId;
+		entityImage = ContentStore.getStore().getResource(imageId);
+	}
+
+	public void setPosition(Vector2d position) {
+		this.position = position;
+	}
+
+	public void setSize(Vector2d size) {
+		this.size = size;
+	}
+
 	@Override
 	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -55,7 +77,7 @@ public class Entity implements Serializable, Drawable, Spatial, Updateable{
 
 	@Override
 	public Rectangle toRectangle() {
-		return new Rectangle();
+		return new Rectangle((int)getSize().getX(), (int)getSize().getY(), (int)getPosition().getX(), (int)getPosition().getY());
 	}
 
 	@Override

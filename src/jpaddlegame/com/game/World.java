@@ -11,7 +11,11 @@ public class World {
 	
 	private Map map;
 	
-	Camera camera;
 	
+	public World() {
+	}
 	
+	public Map getMap(){
+		return map;
+	}
 }

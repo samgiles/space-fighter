@@ -7,7 +7,7 @@ import java.awt.Graphics;
 import java.awt.HeadlessException;
 
 import javax.swing.JApplet;
-
+import jpaddlegame.com.game.*;
 /**
  * This is the entry
  * @author Sam
@@ -21,6 +21,7 @@ public class Game extends JApplet implements Runnable {
 	private BackBuffer backBuffer;
 	
 	
+
 	/**
 	 * 
 	 * @throws HeadlessException
