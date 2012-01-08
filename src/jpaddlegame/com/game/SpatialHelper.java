@@ -11,6 +11,10 @@ public class SpatialHelper {
 	 * @return
 	 */
 	public static boolean isIntersecting(Spatial spatial, Rectangle section){
-		return spatial.toRectangle().intersects(section);
+		
+		Rectangle spatialRect = spatial.toRectangle();
+		
+		return spatialRect.intersects(section);
+		
 	}
 }

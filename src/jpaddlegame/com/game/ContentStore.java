@@ -41,6 +41,7 @@ public class ContentStore {
 			try {
 				img = ImageIO.read(new File(id+".png"));
 			} catch (IOException e){
+				e.printStackTrace();
 			}
 			
 			resource = img;

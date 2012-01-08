@@ -1,7 +1,12 @@
 package jpaddlegame.com.game;
 
 import java.awt.Graphics;
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Map implements java.io.Serializable, Drawable, Updateable{
@@ -13,9 +18,52 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 	 */
 	private transient List<Entity> temporaryEntities;
 	
-	int sizeX = 500;
-	int sizeY = 500;
+	int sizeX = 3000;
+	int sizeY = 3000;
 	
+	int mapId = 0;
+	
+	public List<Entity> getMapEntities() {
+		return mapEntities;
+	}
+
+	public void setMapEntities(List<Entity> mapEntities) {
+		this.mapEntities = mapEntities;
+	}
+
+	public int getSizeX() {
+		return sizeX;
+	}
+
+	public void setSizeX(int sizeX) {
+		this.sizeX = sizeX;
+	}
+
+	public int getSizeY() {
+		return sizeY;
+	}
+
+	public void setSizeY(int sizeY) {
+		this.sizeY = sizeY;
+	}
+
+	public int getMapId() {
+		return mapId;
+	}
+
+	public void setMapId(int mapId) {
+		this.mapId = mapId;
+	}
+
+	public Map() {
+		mapEntities = new LinkedList<Entity>();
+		temporaryEntities = new LinkedList<Entity>();
+	}
+	
+	public Map(int mapId) {
+		this.mapId = mapId;
+		this.load();
+	}
 	
 	/**
 	 * Adds an entity to the map.
@@ -58,18 +106,38 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 			Entity e = it.next();
 			
 			// TODO FUTURE Move this into an extended Iterator and Spatial Collection.  // Only draw entity if in view.
-			if (SpatialHelper.isIntersecting(e, Camera.getCamera().toRectangle())){
-				e.paint(g);
-			}
+			e.paint(g);
 		}
 		
 		for (Iterator<Entity> it = temporaryEntities.iterator(); it.hasNext();){
 			Entity e = it.next();
 			
 			// TODO FUTURE Move this into an extended Iterator and Spatial Collection.  // Only draw entity if in view.
-			if (SpatialHelper.isIntersecting(e, Camera.getCamera().toRectangle())){
-				e.paint(g);
-			}
+			e.paint(g);
+		}
+	}
+	
+	public void save() {
+		try {
+			XMLEncoder encoder = new XMLEncoder(new FileOutputStream(mapId + ".xml"));
+			encoder.writeObject(this);
+			encoder.close();
+		} catch (Exception e) {
+			
+		}
+	}
+	
+	public void load() {
+		try {
+			XMLDecoder decoder = new XMLDecoder(new FileInputStream(mapId + ".xml"));
+			Map map = (Map)decoder.readObject();
+
+			this.setMapEntities(map.getMapEntities());
+			this.setSizeX(map.getSizeX());
+			this.setSizeY(map.getSizeY());
+
+			decoder.close();
+		} catch (Exception e) {
 		}
 	}
 }

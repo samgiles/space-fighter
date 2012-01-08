@@ -1,5 +1,7 @@
 package jpaddlegame.com;
 
+import java.awt.KeyboardFocusManager;
+
 /**
  * Main entry point for the Java application.
  * @author Samuel Giles

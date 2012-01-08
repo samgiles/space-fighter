@@ -3,9 +3,8 @@ package jpaddlegame.com.game;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.image.ImageObserver;
 import java.io.Serializable;
-
-import javax.vecmath.Tuple2d;
 import javax.vecmath.Vector2d;
 
 
@@ -23,7 +22,8 @@ public class Entity implements Serializable, Drawable, Spatial, Updateable{
 	}
 	
 	public Entity(int imageId){
-		entityImage = ContentStore.getStore().getResource(imageId);
+		setImageId(imageId);
+		setPosition(new Vector2d(0, 0));
 	}
 	
 	public int getImageId() {
@@ -33,6 +33,8 @@ public class Entity implements Serializable, Drawable, Spatial, Updateable{
 	public void setImageId(int imageId) {
 		this.imageId = imageId;
 		entityImage = ContentStore.getStore().getResource(imageId);
+		
+		this.size = new Vector2d(entityImage.getWidth(null), entityImage.getHeight(null));
 	}
 
 	public void setPosition(Vector2d position) {
@@ -45,8 +47,12 @@ public class Entity implements Serializable, Drawable, Spatial, Updateable{
 
 	@Override
 	public void paint(Graphics g) {
+		Camera cam = Camera.getCamera(); // TODO: Integrate these two lines into some kind of batching system as they are repeated in every draw from a world object.
+		Vector2d screenPosition = cam.convertToScreenCoordinates(position);
 		
+		g.drawImage(entityImage, (int)screenPosition.getX(), (int)screenPosition.getY(), null);
 	}
+	
 
 	@Override
 	public Vector2d getCenter() {
@@ -72,6 +78,7 @@ public class Entity implements Serializable, Drawable, Spatial, Updateable{
 
 	@Override
 	public Vector2d getSize() {
+		
 		return size;
 	}
 

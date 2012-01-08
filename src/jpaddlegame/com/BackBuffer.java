@@ -1,6 +1,8 @@
 package jpaddlegame.com;
 
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.beans.*;
 /**
  * A simple BackBuffer that is used to buffer the current frame before drawing to the main window.
@@ -37,7 +39,7 @@ public class BackBuffer {
 	 * The property listener that listens for a change in size of the component.  This allows the backbuffer to handle its own resizing automatically, allowing this 
 	 * class to become more pluggable.
 	 */
-	PropertyChangeListener sizeChangeListener = null;
+	ComponentListener sizeChangeListener = null;
 	
 	/**
 	 * Constructs a BackBuffer given an owner component.
@@ -45,46 +47,14 @@ public class BackBuffer {
 	 */
 	public BackBuffer(Component owner) {
 		this.owner = owner;
-		this.width = owner.getWidth();
-		this.height = owner.getHeight();
-		
 		setUpBackImage();
-		
-		owner.addPropertyChangeListener("Size", getSizeListener());
-
-	}
-	
-	/**
-	 * Gets the PropertyChangeListener that is used to listen to the size property of the component.
-	 * @return
-	 */
-	private PropertyChangeListener getSizeListener() {
-		
-		// If the listener hasn't been set up yet then set it up.
-		if (sizeChangeListener == null) {
-			sizeChangeListener =  new PropertyChangeListener() {
-
-				@Override
-				public void propertyChange(PropertyChangeEvent arg0) {
-					if (arg0.getNewValue() instanceof Dimension){
-						Dimension newDimension = (Dimension)arg0.getNewValue();
-					
-						BackBuffer.this.setSize(newDimension);
-					}
-				}
-			};
-			
-		}
-		
-		return sizeChangeListener;
-		
 	}
 	
 	/**
 	 * Set up the BackBuffer image with the current objects state.
 	 */
 	private void setUpBackImage() {
-		offscreenImage = owner.createImage(width, height);
+		offscreenImage = owner.createImage(owner.getWidth(), owner.getHeight());
 		offscreenGraphics = offscreenImage.getGraphics();
 	}
 	
@@ -95,15 +65,6 @@ public class BackBuffer {
 		setUpBackImage();
 	}
 	
-	/**
-	 * Set the size of the BackBuffer.
-	 * @param Dimension dimension The dimension to set the size from.
-	 */
-	private void setSize(Dimension dimension) {
-		this.width = dimension.height;
-		this.height = dimension.width;
-		setUpBackImage();
-	}
 	
 	/**
 	 * Get the graphics object for the BackBuffer.

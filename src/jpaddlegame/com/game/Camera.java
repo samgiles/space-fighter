@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.vecmath.Vector2d;
 
@@ -23,6 +25,8 @@ public class Camera {
 	
 	private Component viewport;
 	
+	private ComponentListener sizeListener;
+	
 	private static Camera cameraInstance;
 	
 	/**
@@ -30,17 +34,14 @@ public class Camera {
 	 */
 	public static Camera getCamera(){
 		if (cameraInstance == null){
-			cameraInstance = new Camera(100, 100); // TODO Set the size properly.
+			cameraInstance = new Camera(); // TODO Set the size properly.
 		}
 		
 		return cameraInstance;
 	}
 	
-	private Camera(int sizeX, int sizeY){
-		this.sizeX = sizeX;
-		this.sizeY = sizeY;
-		
-		worldPosition = new Vector2d(100, 100); // TODO Set this properly.
+	private Camera(){
+		worldPosition = new Vector2d(0, 0); // TODO Set this properly.
 	}
 	
 	/**
@@ -49,10 +50,19 @@ public class Camera {
 	 */
 	public void setViewport(Component viewport){
 		this.viewport = viewport;
+	}
+	
+	
+	public Vector2d convertToWorldCoordinates(Vector2d screenPosition) {
 		
-		// Sync the camera size to the viewport size.
-		this.sizeX = viewport.getX();
-		this.sizeY = viewport.getY();
+		if (viewport == null){
+			throw new NullPointerException("Viewport not set, set viewport with Camera.setViewport(Component viewport).");
+		}
+		
+		double screenPositionX = worldPosition.getX() + screenPosition.getX();
+		double screenPositionY = worldPosition.getY() + screenPosition.getY();
+		
+		return new Vector2d(screenPositionX, screenPositionY);
 	}
 	
 	public Vector2d convertToScreenCoordinates(Vector2d worldPosition) {
@@ -67,6 +77,10 @@ public class Camera {
 		return new Vector2d(screenPositionX, screenPositionY);
 	}
 	
+	public Vector2d getWorldPosition() {
+		return worldPosition;
+	}
+	
 	public void move(Vector2d moveamount) {
 		this.worldPosition.add(moveamount);
 	}
@@ -75,8 +89,8 @@ public class Camera {
 	 * Get the rectangular projection of this Camera.
 	 * @return
 	 */
-	public Rectangle toRectangle() {
-		return new Rectangle((int)worldPosition.getX(), (int)worldPosition.getY(), sizeX, sizeY);
+	public Rectangle toWorldRectangle() {
+		return new Rectangle((int)worldPosition.getX(), (int)worldPosition.getY(), viewport.getWidth(), viewport.getHeight());
 	}
 
 	
