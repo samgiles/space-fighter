@@ -56,6 +56,10 @@ public class BackBuffer {
 	private void setUpBackImage() {
 		offscreenImage = owner.createImage(owner.getWidth(), owner.getHeight());
 		offscreenGraphics = offscreenImage.getGraphics();
+		Color color = offscreenGraphics.getColor();
+		offscreenGraphics.setColor(Color.black);
+		offscreenGraphics.fillRect(0, 0, owner.getWidth(), owner.getHeight());
+		offscreenGraphics.setColor(color);
 	}
 	
 	/**

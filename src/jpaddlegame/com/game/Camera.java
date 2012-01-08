@@ -26,6 +26,8 @@ public class Camera {
 	
 	private static Camera cameraInstance;
 	
+	private Spatial objectCentered = null;
+	
 	/**
 	 * The world this camera is looking at.
 	 */
@@ -49,6 +51,9 @@ public class Camera {
 		this.viewport = viewport;
 	}
 	
+	public void setCenterOn(Spatial object){
+		objectCentered = object;
+	}
 	
 	public Vector2d convertToWorldCoordinates(Vector2d screenPosition) {
 		
@@ -90,5 +95,18 @@ public class Camera {
 		return new Rectangle((int)worldPosition.getX(), (int)worldPosition.getY(), viewport.getWidth(), viewport.getHeight());
 	}
 
-	
+	public void update() {
+		if (objectCentered != null){
+			Rectangle rect = this.toWorldRectangle();
+			double x = rect.getCenterX();
+			double y = rect.getCenterY();
+		
+			Vector2d centerOn = this.objectCentered.getCenter();
+		
+			centerOn.sub(new Vector2d(x, y));
+		
+			
+				this.worldPosition.add(centerOn);
+		}
+	}
 }

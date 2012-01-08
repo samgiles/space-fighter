@@ -8,10 +8,13 @@ import java.io.FileOutputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import jpaddlegame.com.BatchDrawer;
 
 public class Map implements java.io.Serializable, Drawable, Updateable{
 
 	private List<Entity> mapEntities;
+	
+	private StarField starField;
 	
 	/**
 	 * Temporary map entities that are not supposed to be serialized to the map file.
@@ -59,6 +62,8 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 		mapEntities = new LinkedList<Entity>();
 		temporaryEntities = new LinkedList<Entity>();
 		mapId = 0;
+		starField = new StarField(0);
+		
 	}
 	
 	/**
@@ -96,7 +101,7 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 	}
 	
 	@Override
-	public void paint(Graphics g) {
+	public void paint(BatchDrawer g) {
 		// Iterate over all persistable entities and draw them.
 		for(Iterator<Entity> it = mapEntities.iterator(); it.hasNext();){
 			Entity e = it.next();
@@ -111,6 +116,8 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 			// TODO FUTURE Move this into an extended Iterator and Spatial Collection.  // Only draw entity if in view.
 			e.paint(g);
 		}
+		
+		starField.paint(g);
 	}
 	
 	public void save() {

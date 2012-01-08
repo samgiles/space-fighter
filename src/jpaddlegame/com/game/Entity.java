@@ -7,11 +7,14 @@ import java.awt.image.ImageObserver;
 import java.io.Serializable;
 import javax.vecmath.Vector2d;
 
+import jpaddlegame.com.*;
 
 public class Entity implements Serializable, Drawable, Spatial, Updateable{
 
-	private Vector2d position;
+	protected Vector2d position;
 	private Vector2d size;
+	
+	protected double rotation = 0;
 	
 	private transient Image entityImage;
 	
@@ -46,11 +49,11 @@ public class Entity implements Serializable, Drawable, Spatial, Updateable{
 	}
 
 	@Override
-	public void paint(Graphics g) {
+	public void paint(BatchDrawer g) {
 		Camera cam = Camera.getCamera(); // TODO: Integrate these two lines into some kind of batching system as they are repeated in every draw from a world object.
 		Vector2d screenPosition = cam.convertToScreenCoordinates(position);
 		
-		g.drawImage(entityImage, (int)screenPosition.getX(), (int)screenPosition.getY(), null);
+		g.drawImage(entityImage, (int)screenPosition.getX(), (int)screenPosition.getY(), rotation, 1);
 		
 	}
 	
@@ -90,8 +93,6 @@ public class Entity implements Serializable, Drawable, Spatial, Updateable{
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

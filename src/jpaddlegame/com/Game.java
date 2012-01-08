@@ -48,7 +48,9 @@ public class Game extends JApplet implements Runnable, KeyEventDispatcher, Mouse
 	 */
 	public void start() {
 		world = new World(this);
-		this.addMouseListener(new ClickListener(world));
+		ClickListener listener = new ClickListener(world);
+		this.addMouseListener(listener);
+		this.addMouseMotionListener(listener);
 		// Create the main thread.
 		mainThread = new Thread(this);
 		// Start the main thread.
@@ -68,6 +70,8 @@ public class Game extends JApplet implements Runnable, KeyEventDispatcher, Mouse
 		while (true) {
 			i++;
 			
+			world.update();
+			Camera.getCamera().update();
 			repaint();
 			
 			try {
@@ -81,12 +85,14 @@ public class Game extends JApplet implements Runnable, KeyEventDispatcher, Mouse
 	public void paint(Graphics g){
 		
 		Graphics bbG = backBuffer.getGraphics();
+		BatchDrawer drawer = new BatchDrawer(bbG);
 		
-		bbG.drawString("Camera World Position = " + Camera.getCamera().getWorldPosition().toString(), 10, 10);
+		drawer.drawString("Camera World Position = " + Camera.getCamera().getWorldPosition().toString(), 10, 10, Color.white, 0);
 		
+		world.getMap().paint(drawer);
 		
-		world.getMap().paint(bbG);
-		g.drawImage(backBuffer.getBackBuffer(), 0, 0, Color.white, null);
+		drawer.draw();
+		g.drawImage(backBuffer.getBackBuffer(), 0, 0, Color.black, null);
 		backBuffer.clear();
 	}
 
@@ -94,25 +100,22 @@ public class Game extends JApplet implements Runnable, KeyEventDispatcher, Mouse
 	public boolean dispatchKeyEvent(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 				if (KeyEvent.VK_LEFT == arg0.getKeyCode()){
-					Camera.getCamera().move(new Vector2d(-5, 0));
-					return true;
+					world.getCharacter().rotate(-0.2);
 				}
 				
 				if (KeyEvent.VK_RIGHT == arg0.getKeyCode()){
-					Camera.getCamera().move(new Vector2d(5, 0));
-					return true;
+					world.getCharacter().rotate(0.2);
 				}
 				
 				if (KeyEvent.VK_UP == arg0.getKeyCode()){
-					Camera.getCamera().move(new Vector2d(0, -5));
-					return true;
+					world.getCharacter().moveForward();
 				}
 				
 				if (KeyEvent.VK_DOWN == arg0.getKeyCode()){
 					Camera.getCamera().move(new Vector2d(0, 5));
-					return true;
 				}
-				return false;
+				
+		return true;
 	}
 
 	@Override
@@ -125,7 +128,6 @@ public class Game extends JApplet implements Runnable, KeyEventDispatcher, Mouse
 	@Override
 	public void mouseEntered(java.awt.event.MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
