@@ -23,7 +23,7 @@ import jpaddlegame.com.game.*;
  * @author Sam
  *
  */
-public class Game extends JApplet implements Runnable, KeyEventDispatcher, MouseListener {
+public class Game extends JApplet implements Runnable{
 
 	private Thread mainThread;
 	private int i;
@@ -32,14 +32,11 @@ public class Game extends JApplet implements Runnable, KeyEventDispatcher, Mouse
 	
 	private World world;
 	
-	
-
 	/**
 	 * 
 	 * @throws HeadlessException
 	 */
 	public Game() throws HeadlessException {
-		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
 		
 	}
 	
@@ -49,13 +46,13 @@ public class Game extends JApplet implements Runnable, KeyEventDispatcher, Mouse
 	public void start() {
 		world = new World(this);
 		ClickListener listener = new ClickListener(world);
-		this.addMouseListener(listener);
-		this.addMouseMotionListener(listener);
+		this.addKeyListener(KeyBoardState.getProcessor());
+		this.setFocusable(true);
+		requestFocus();
 		// Create the main thread.
 		mainThread = new Thread(this);
 		// Start the main thread.
 		mainThread.start();
-		
 		backBuffer = new BackBuffer(this);
 		
 		i = 0;
@@ -69,7 +66,7 @@ public class Game extends JApplet implements Runnable, KeyEventDispatcher, Mouse
 	public void run() {
 		while (true) {
 			i++;
-			
+			handleKeys();
 			world.update();
 			Camera.getCamera().update();
 			repaint();
@@ -96,57 +93,23 @@ public class Game extends JApplet implements Runnable, KeyEventDispatcher, Mouse
 		backBuffer.clear();
 	}
 
-	@Override
-	public boolean dispatchKeyEvent(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-				if (KeyEvent.VK_LEFT == arg0.getKeyCode()){
-					world.getCharacter().rotate(-0.2);
-				}
-				
-				if (KeyEvent.VK_RIGHT == arg0.getKeyCode()){
-					world.getCharacter().rotate(0.2);
-				}
-				
-				if (KeyEvent.VK_UP == arg0.getKeyCode()){
-					world.getCharacter().moveForward();
-				}
-				
-				if (KeyEvent.VK_DOWN == arg0.getKeyCode()){
-					Camera.getCamera().move(new Vector2d(0, 5));
-				}
-				
-		return true;
-	}
-
-	@Override
-	public void mouseClicked(java.awt.event.MouseEvent arg0) {
-		if (arg0.isShiftDown()){
-			world.getMap().addEntity(new Entity(0));
+	
+	private void handleKeys() {
+		if (KeyBoardState.getProcessor().isLeft()){
+			world.getCharacter().rotate(-0.2);
+		}
+		
+		if (KeyBoardState.getProcessor().isRight()){
+			world.getCharacter().rotate(0.2);
+		}
+		
+		if (KeyBoardState.getProcessor().isUp()){
+			world.getCharacter().moveForward();
+		}
+		
+		if (KeyBoardState.getProcessor().isDown()){
+			world.getCharacter().moveBackward();
 		}
 	}
-
-	@Override
-	public void mouseEntered(java.awt.event.MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseExited(java.awt.event.MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(java.awt.event.MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(java.awt.event.MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }

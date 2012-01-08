@@ -17,6 +17,14 @@ public class DynamicEntity extends Entity {
 		
 		this.velocity.add(new Vector2d(x, y));
 	}
+	
+	public void moveBackward() {
+		// Use polar coordinates to get a vector ahead of the rotation.
+				double x = (Math.cos(this.rotation - 1.53)) * 2;
+				double y = (Math.sin(this.rotation - 1.53)) * 2;
+				
+				this.velocity.add(new Vector2d(-x, -y));
+	}
 
 	public void rotate(double rotation){
 		this.rotation += rotation;
