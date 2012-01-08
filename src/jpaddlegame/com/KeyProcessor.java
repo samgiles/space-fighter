@@ -10,7 +10,7 @@ public class KeyProcessor implements KeyListener {
 	private boolean down = false;
 	private boolean left = false;
 	private boolean right = false;
-	
+	private boolean space = false;
 	
 	
 	public boolean isUp() {
@@ -27,6 +27,10 @@ public class KeyProcessor implements KeyListener {
 
 	public boolean isRight() {
 		return right;
+	}
+	
+	public boolean isSpace() {
+		return space;
 	}
 
 	@Override
@@ -47,6 +51,10 @@ public class KeyProcessor implements KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_UP){
 			up = true;
 		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_SPACE){
+			space = true;
+		}
 	}
 
 	@Override
@@ -66,6 +74,10 @@ public class KeyProcessor implements KeyListener {
 		
 		if (e.getKeyCode() == KeyEvent.VK_UP){
 			up = false;
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_SPACE){
+			space = false;
 		}
 	}
 

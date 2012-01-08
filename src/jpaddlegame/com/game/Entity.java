@@ -20,13 +20,17 @@ public class Entity implements Serializable, Drawable, Spatial, Updateable{
 	
 	private int imageId;
 	
-	public Entity(){
+	protected Map map;
+	
+	public Entity(Map map){
 		setImageId(0);
+		this.map = map;
 	}
 	
-	public Entity(int imageId){
+	public Entity(int imageId, Map map){
 		setImageId(imageId);
 		setPosition(new Vector2d(0, 0));
+		this.map = map;
 	}
 	
 	public int getImageId() {

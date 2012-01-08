@@ -22,7 +22,7 @@ public class World implements Drawable, Updateable{
 		cam.setViewport(worldWiewPort);
 		
 		map = new Map();
-		character = new Character();
+		character = new Character(map);
 		map.addEntity(character);
 		cam.setCenterOn(character);
 	}

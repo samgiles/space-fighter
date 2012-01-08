@@ -98,6 +98,14 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 			Entity e = it.next();
 			e.update();
 		}
+		
+		for (int i = 0; i < temporaryEntities.size(); i++){
+			if (temporaryEntities.get(i) instanceof TemporaryEntity){
+				if ( ((TemporaryEntity)temporaryEntities.get(i)).isDead()){
+					temporaryEntities.remove(temporaryEntities.get(i));
+				}
+			}
+		}
 	}
 	
 	@Override

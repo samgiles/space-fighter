@@ -104,11 +104,15 @@ public class Game extends JApplet implements Runnable{
 		}
 		
 		if (KeyBoardState.getProcessor().isUp()){
-			world.getCharacter().moveForward();
+			world.getCharacter().moveForward(2);
 		}
 		
 		if (KeyBoardState.getProcessor().isDown()){
-			world.getCharacter().moveBackward();
+			world.getCharacter().moveBackward(2);
+		}
+		
+		if (KeyBoardState.getProcessor().isSpace()){
+			world.getCharacter().fire();
 		}
 	}
 
