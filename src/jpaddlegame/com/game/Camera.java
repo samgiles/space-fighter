@@ -17,10 +17,7 @@ import javax.vecmath.Vector2d;
  *
  */
 public class Camera {
-	
-	int sizeX;
-	int sizeY;
-	
+
 	Vector2d worldPosition;
 	
 	private Component viewport;

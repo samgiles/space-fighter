@@ -22,7 +22,7 @@ public class ClickListener extends MouseAdapter {
 	    
 	    
 	    if (event.isControlDown()){
-	    	Entity e = new Entity(1);
+	    	Entity e = new Entity(0);
 	    	Vector2d pos = Camera.getCamera().convertToWorldCoordinates(new Vector2d(event.getX(), event.getY()));
 	    	e.setPosition(pos);
 	    	world.getMap().addEntity(e);

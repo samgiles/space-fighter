@@ -58,11 +58,7 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 	public Map() {
 		mapEntities = new LinkedList<Entity>();
 		temporaryEntities = new LinkedList<Entity>();
-	}
-	
-	public Map(int mapId) {
-		this.mapId = mapId;
-		this.load();
+		mapId = 0;
 	}
 	
 	/**
@@ -127,17 +123,18 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 		}
 	}
 	
-	public void load() {
+	public static Map load(int mapId) {
+		XMLDecoder decoder = null;
+		Map map = null;
 		try {
-			XMLDecoder decoder = new XMLDecoder(new FileInputStream(mapId + ".xml"));
-			Map map = (Map)decoder.readObject();
-
-			this.setMapEntities(map.getMapEntities());
-			this.setSizeX(map.getSizeX());
-			this.setSizeY(map.getSizeY());
-
-			decoder.close();
+			 decoder = new XMLDecoder(new FileInputStream(mapId + ".xml"));
+			 map = (Map)decoder.readObject();
 		} catch (Exception e) {
+		} finally {
+			if (decoder != null){
+				decoder.close();
+			}
 		}
+		return map;
 	}
 }

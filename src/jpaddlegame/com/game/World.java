@@ -19,10 +19,8 @@ public class World implements Drawable{
 		Camera cam = Camera.getCamera(); // HACK:  This seemes hacky.  Sets up the singleton of the camera, and supplies it with a viewport.
 		cam.setViewport(worldWiewPort);
 		
-		map = new Map();
-		map.load();
-	
-		
+		map = Map.load(0);
+
 	}
 	
 	public Map getMap(){

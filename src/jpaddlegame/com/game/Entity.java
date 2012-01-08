@@ -18,7 +18,7 @@ public class Entity implements Serializable, Drawable, Spatial, Updateable{
 	private int imageId;
 	
 	public Entity(){
-		
+		setImageId(0);
 	}
 	
 	public Entity(int imageId){
@@ -51,6 +51,7 @@ public class Entity implements Serializable, Drawable, Spatial, Updateable{
 		Vector2d screenPosition = cam.convertToScreenCoordinates(position);
 		
 		g.drawImage(entityImage, (int)screenPosition.getX(), (int)screenPosition.getY(), null);
+		
 	}
 	
 
