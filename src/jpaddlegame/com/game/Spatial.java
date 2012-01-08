@@ -8,7 +8,7 @@ import javax.vecmath.Vector2d;
  * Represents an object that takes up space in the World.
  * @author Samuel Giles
  */
-public interface Spatial {
+public interface Spatial extends Updateable, Drawable {
 	
 	/**
 	 * Gets the central point of this Spatial.

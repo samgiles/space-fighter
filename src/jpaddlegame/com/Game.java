@@ -84,9 +84,8 @@ public class Game extends JApplet implements Runnable{
 		Graphics bbG = backBuffer.getGraphics();
 		BatchDrawer drawer = new BatchDrawer(bbG);
 		
-		drawer.drawString("Camera World Position = " + Camera.getCamera().getWorldPosition().toString(), 10, 10, Color.white, 0);
 		
-		world.getMap().paint(drawer);
+		world.paint(drawer);
 		
 		drawer.draw();
 		g.drawImage(backBuffer.getBackBuffer(), 0, 0, Color.black, null);

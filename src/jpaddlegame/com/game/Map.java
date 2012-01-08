@@ -12,25 +12,25 @@ import jpaddlegame.com.BatchDrawer;
 
 public class Map implements java.io.Serializable, Drawable, Updateable{
 
-	private List<Entity> mapEntities;
+	private SpatialCollection mapEntities;
 	
 	private StarField starField;
 	
 	/**
 	 * Temporary map entities that are not supposed to be serialized to the map file.
 	 */
-	private transient List<Entity> temporaryEntities;
+	private transient SpatialCollection temporaryEntities;
 	
 	int sizeX = 3000;
 	int sizeY = 3000;
 	
 	int mapId = 0;
 	
-	public List<Entity> getMapEntities() {
+	public SpatialCollection getMapEntities() {
 		return mapEntities;
 	}
 
-	public void setMapEntities(List<Entity> mapEntities) {
+	public void setMapEntities(SpatialCollection mapEntities) {
 		this.mapEntities = mapEntities;
 	}
 
@@ -59,8 +59,8 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 	}
 
 	public Map() {
-		mapEntities = new LinkedList<Entity>();
-		temporaryEntities = new LinkedList<Entity>();
+		mapEntities = new LinearSpatialCollection();
+		temporaryEntities = new LinearSpatialCollection();
 		mapId = 0;
 		starField = new StarField(0);
 		
@@ -87,16 +87,51 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 	}
 	
 	public void update(){
+		
+		
+		
+		
 		// Iterate over all persistable entities and update them.
-		for (Iterator<Entity> it = mapEntities.iterator(); it.hasNext();){
-			Entity e = it.next();
+		for (Iterator<Spatial> it = mapEntities.iterator(); it.hasNext();){
+			Spatial e = it.next();
+			
 			e.update();
+			
+			/*SpatialCollection collisions = mapEntities.collidesWith(e);
+			
+			if (collisions.size() > 0){
+				for (Iterator<Spatial> it2 = collisions.iterator(); it2.hasNext();) {
+					Spatial collision = it2.next();
+					
+				}
+			}*/
 		}
 		
 		// Iterate over all temporary entities and update them.
-		for (Iterator<Entity> it = temporaryEntities.iterator(); it.hasNext();){
-			Entity e = it.next();
-			e.update();
+		for (Iterator<Spatial> it = temporaryEntities.iterator(); it.hasNext();){
+			Spatial e = it.next();
+			if (e!= null){
+				e.update();
+			
+			
+				SpatialCollection collisions = mapEntities.collidesWith(e);
+			
+				if (collisions.size() > 0){
+					for (Iterator<Spatial> it2 = collisions.iterator(); it2.hasNext();) {
+						Spatial collision = it2.next();
+						if (collision instanceof Projectile){
+							Projectile p = (Projectile)collision;
+							if (p.getOwner() == e){
+								continue;
+							} else {
+								if (e instanceof Character){
+									((Character)e).takeDamage(p.getOwner());
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		
 		for (int i = 0; i < temporaryEntities.size(); i++){
@@ -111,15 +146,15 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 	@Override
 	public void paint(BatchDrawer g) {
 		// Iterate over all persistable entities and draw them.
-		for(Iterator<Entity> it = mapEntities.iterator(); it.hasNext();){
-			Entity e = it.next();
+		for(Iterator<Spatial> it = mapEntities.iterator(); it.hasNext();){
+			Spatial e = it.next();
 			
 			// TODO FUTURE Move this into an extended Iterator and Spatial Collection.  // Only draw entity if in view.
 			e.paint(g);
 		}
 		
-		for (Iterator<Entity> it = temporaryEntities.iterator(); it.hasNext();){
-			Entity e = it.next();
+		for (Iterator<Spatial> it = temporaryEntities.iterator(); it.hasNext();){
+			Spatial e = it.next();
 			
 			// TODO FUTURE Move this into an extended Iterator and Spatial Collection.  // Only draw entity if in view.
 			e.paint(g);

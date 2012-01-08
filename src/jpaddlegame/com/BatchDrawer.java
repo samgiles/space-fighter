@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
@@ -29,6 +30,30 @@ public class BatchDrawer {
 			public int compare(BatchDrawerFunction arg0,
 					BatchDrawerFunction arg1) {
 				return arg0.getDrawOrder() - arg1.getDrawOrder();
+			}});
+	}
+	
+	public void drawFillRect(final int width, final int height, final int x, final int y, final Color color, final int zIndex){
+		queue.add(new BatchDrawerFunction() {
+
+			int _x= x;
+			int _y = y;
+			
+			int _zIndex = zIndex;
+			
+			Color _color = color;
+			
+			@Override
+			public int getDrawOrder() {
+				return _zIndex;
+			}
+
+			@Override
+			public void draw() {
+				Color color = graphicsObject.getColor();
+				graphicsObject.setColor(_color);
+				graphicsObject.fillRect(_x, _y, width, height);
+				graphicsObject.setColor(color);
 			}});
 	}
 	

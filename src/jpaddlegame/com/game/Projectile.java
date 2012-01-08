@@ -8,6 +8,10 @@ public class Projectile extends DynamicEntity implements TemporaryEntity {
 	private Character owner;
 
 	
+	public Character getOwner() {
+		return owner;
+	}
+
 	private boolean alive = true;
 	
 	public Projectile( Character owner) {
