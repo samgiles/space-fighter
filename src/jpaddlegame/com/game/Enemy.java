@@ -8,10 +8,16 @@ import jpaddlegame.com.BatchDrawer;
 
 public class Enemy extends Character {
 
+	DynamicEntity target;
+	
 	public Enemy(Map map) {
 		super(map);
 	}
 
+	public void setTarget(DynamicEntity character) {
+		this.target = character;
+	}
+	
 	public void paint(BatchDrawer g){
 		
 		Vector2d pos = Camera.getCamera().convertToScreenCoordinates(this.position);
@@ -27,6 +33,37 @@ public class Enemy extends Character {
 	}
 	
 	public void update() {
+		
+		if (this.getHealth() < 0){
+			return;
+		}
+		
+		if (target == null){
+			super.update();
+			return;
+		}
+		
+		Vector2d target = new Vector2d(this.target.getPosition().getX(), this.target.getPosition().getY());
+		
+		target.sub(this.getCenter());
+		
+		double angle = Math.atan2(target.getY(), target.getX() );
+		
+	
+		
+		this.rotation = angle + 1.57;
+		
+		if (target.length() > 100){
+			this.moveForward(2);
+		} else {
+			this.moveBackward(2);
+		}
+		
+		if ( (Math.random() % 100) > 50){
+			this.fire();
+		}
+		
+		super.update();
 		
 	}
 	

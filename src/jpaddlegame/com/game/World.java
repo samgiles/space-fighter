@@ -32,6 +32,7 @@ public class World implements Drawable, Updateable{
 		map.addEntity(character);
 		map.addEntity(e);
 		cam.setCenterOn(character);
+		e.setTarget(character);
 	}
 	
 	public Map getMap(){
