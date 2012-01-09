@@ -59,7 +59,8 @@ public class Enemy extends Character {
 			this.rotation = angle + 1.57;
 		}
 		
-			if (target.length() > 100){
+		double length = target.length();
+			if (length > 100){
 				this.moveForward(2);
 			} else {
 			this.moveBackward(2);
@@ -67,16 +68,17 @@ public class Enemy extends Character {
 		
 			double rand = Math.random();
 			
+			if (length < 300){
 			if (firePowerRemaining < 10){
-				if (rand > 0.9){
+				if (rand > 0.95){
 					this.fire();
 				}
 			} else {
-				if (rand > 0.6){
+				if (rand > 0.6)
 					this.fire();
 				}
 			}
-		
+			
 			
 		
 		super.update();
