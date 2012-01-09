@@ -22,6 +22,10 @@ public class Character extends DynamicEntity {
 		return health;
 	}
 	
+	public int getKillCount() {
+		return killCount;
+	}
+	
 	public void addHealth(double value) {
 		health += value;
 	}

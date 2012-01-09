@@ -49,6 +49,9 @@ public class World implements Drawable, Updateable{
 		} else {
 			g.drawFillRect((int)character.getHealth(), 10, 65, 11, Color.red, -1);
 		}
+		
+		g.drawString("Kills: " + character.getKillCount(), 20, 40, Color.white, -1);
+		
 		map.paint(g);
 	}
 	

@@ -16,8 +16,13 @@ public class Enemy extends Character {
 		
 		Vector2d pos = Camera.getCamera().convertToScreenCoordinates(this.position);
 		
-		g.drawFillRect((int)this.getHealth() / 10, 3, (int)pos.x - 2,  (int)pos.y - 2, Color.green, 1);
-		
+		if (this.getHealth() > 70){
+			g.drawFillRect((int)this.getHealth() / 5, 3, (int)pos.x + 2,  (int)pos.y - 5, Color.green, 1);
+		} else if (this.getHealth() > 30){
+			g.drawFillRect((int)this.getHealth() / 5, 3, (int)pos.x + 2,  (int)pos.y - 5, Color.orange, 1);
+		} else {
+			g.drawFillRect((int)this.getHealth() / 5, 3, (int)pos.x + 2,  (int)pos.y - 5, Color.red, 1);
+		}
 		super.paint(g);
 	}
 	
