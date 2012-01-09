@@ -21,7 +21,7 @@ public class StarField implements Drawable {
 		// Initialise with some random stars!
 		worldPoints = new ArrayList<Vector2d>();
 		
-		for (int i = 0; i < 100000; i++){
+		for (int i = 0; i < 20000; i++){
 			Random rand = new Random();
 			int x = (rand.nextInt() % 10000);
 			int y = (rand.nextInt() % 10000);
