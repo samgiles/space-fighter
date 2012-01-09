@@ -59,7 +59,8 @@ public class Enemy extends Character {
 			this.moveBackward(2);
 		}
 		
-		if ( (Math.random() % 100) > 50){
+		double rand = Math.random();
+		if (rand > 0.7){
 			this.fire();
 		}
 		

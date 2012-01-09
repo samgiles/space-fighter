@@ -34,12 +34,18 @@ public class Character extends DynamicEntity {
 		killCount++;
 	}
 	
+	
+	
 	public void takeDamage(Character from){
 		
 		health -= 0.2;
 		
 		if (health < 0){
+			// Died
 			from.killedCharacter(this);
+			this.health = 100;
+			this.setPosition(new Vector2d(0, 0));
+			killCount--;
 		}
 	}
 	
