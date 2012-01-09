@@ -115,17 +115,17 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 			
 			
 				SpatialCollection collisions = mapEntities.collidesWith(e);
-			
 				if (collisions.size() > 0){
 					for (Iterator<Spatial> it2 = collisions.iterator(); it2.hasNext();) {
 						Spatial collision = it2.next();
-						if (collision instanceof Projectile){
-							Projectile p = (Projectile)collision;
-							if (p.getOwner() == e){
+						if (e instanceof Projectile){
+							Projectile p = (Projectile)e;
+							if (p.getOwner() == collision){
 								continue;
 							} else {
-								if (e instanceof Character){
-									((Character)e).takeDamage(p.getOwner());
+								if (collision instanceof Character){
+									((Character)collision).takeDamage(p.getOwner());
+									p.kill();
 								}
 							}
 						}

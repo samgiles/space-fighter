@@ -92,7 +92,7 @@ public class Entity implements Serializable, Drawable, Spatial, Updateable{
 
 	@Override
 	public Rectangle toRectangle() {
-		return new Rectangle((int)getSize().getX(), (int)getSize().getY(), (int)getPosition().getX(), (int)getPosition().getY());
+		return new Rectangle((int)getPosition().getX(), (int)getPosition().getY(), (int)getSize().getX(), (int)getSize().getY());
 	}
 
 	@Override

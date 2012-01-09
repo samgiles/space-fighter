@@ -24,9 +24,13 @@ public class World implements Drawable, Updateable{
 		Camera cam = Camera.getCamera(); // HACK:  This seemes hacky.  Sets up the singleton of the camera, and supplies it with a viewport.
 		cam.setViewport(worldWiewPort);
 		
+		
+		
 		map = new Map();
 		character = new Character(map);
+		Enemy e = new Enemy(map);
 		map.addEntity(character);
+		map.addEntity(e);
 		cam.setCenterOn(character);
 	}
 	

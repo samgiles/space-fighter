@@ -1,5 +1,6 @@
 package jpaddlegame.com.game;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
@@ -149,6 +150,10 @@ public class LinearSpatialCollection implements SpatialCollection {
 				// Collision with self
 				continue;
 			}
+			
+			Rectangle t = s.toRectangle();
+			Rectangle o = spatial.toRectangle();
+			
 			
 			if (s.toRectangle().intersects(spatial.toRectangle())){
 				spatials.add(s);

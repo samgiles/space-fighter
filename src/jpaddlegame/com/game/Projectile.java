@@ -20,6 +20,11 @@ public class Projectile extends DynamicEntity implements TemporaryEntity {
 		this.rotation = owner.rotation;
 		this.position = new Vector2d(owner.position.x, owner.position.y);
 		this.moveForward(40 + (int)owner.getVelocity().length());
+		this.owner = owner;
+	}
+	
+	public void kill() {
+		alive = false;
 	}
 	
 	public void update(){
