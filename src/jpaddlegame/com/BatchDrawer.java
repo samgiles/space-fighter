@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
@@ -24,7 +25,10 @@ public class BatchDrawer {
 	
 	public BatchDrawer(Graphics graphicsObject) {
 		this.graphicsObject = (Graphics2D)graphicsObject;
-		
+		this.graphicsObject.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		this.graphicsObject.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		this.graphicsObject.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		this.graphicsObject.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
 		queue = new PriorityQueue<BatchDrawerFunction>(10, new Comparator<BatchDrawerFunction>(){
 			@Override
 			public int compare(BatchDrawerFunction arg0,

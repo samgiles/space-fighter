@@ -1,5 +1,7 @@
 package jpaddlegame.com.game;
 
+import java.util.Date;
+
 import javax.vecmath.Vector2d;
 
 public class Character extends DynamicEntity {
@@ -8,6 +10,10 @@ public class Character extends DynamicEntity {
 	
 	int killCount = 0;
 	
+	int firePowerRemaining = 100;
+	
+	long lastUpdate = 0;
+	
 	public Character(Map map) {
 		super(map);
 		this.setImageId(1);
@@ -15,7 +21,10 @@ public class Character extends DynamicEntity {
 	}
 	
 	public void fire() {
-		this.map.addTemporaryMapEntity(new Projectile(this));
+		if (firePowerRemaining > 0){
+			this.map.addTemporaryMapEntity(new Projectile(this, 3, 2.0));
+			firePowerRemaining -= 1;
+		}
 	}
 	
 	public double getHealth(){
@@ -34,19 +43,38 @@ public class Character extends DynamicEntity {
 		killCount++;
 	}
 	
+	public int getFirePowerRemaining() {
+		return firePowerRemaining;
+	}
 	
 	
-	public void takeDamage(Character from){
+	public void takeDamage(Character from, double amount){
 		
-		health -= 0.2;
+		health -= amount;
 		
 		if (health < 0){
 			// Died
 			from.killedCharacter(this);
 			this.health = 100;
+			this.firePowerRemaining = 100;
 			this.setPosition(new Vector2d(0, 0));
 			killCount--;
 		}
 	}
 	
+
+	public void update() {
+		
+		
+		long thisUpdate = (long)(new Date().getTime());
+		
+		if ((thisUpdate - lastUpdate) > 500){
+			if (firePowerRemaining < 100){
+				firePowerRemaining++;
+			}
+			lastUpdate = thisUpdate;
+		}
+		
+		super.update();
+	}
 }

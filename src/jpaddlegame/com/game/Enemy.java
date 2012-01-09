@@ -10,8 +10,11 @@ public class Enemy extends Character {
 
 	DynamicEntity target;
 	
+	
 	public Enemy(Map map) {
 		super(map);
+		this.setImageId(0);
+		this.health = 90;
 	}
 
 	public void setTarget(DynamicEntity character) {
@@ -20,15 +23,17 @@ public class Enemy extends Character {
 	
 	public void paint(BatchDrawer g){
 		
-		Vector2d pos = Camera.getCamera().convertToScreenCoordinates(this.position);
+		Vector2d pos = Camera.getCamera().convertToScreenCoordinates(this.getPosition());
 		
-		if (this.getHealth() > 70){
+		if (this.getHealth() > 50){
 			g.drawFillRect((int)this.getHealth() / 5, 3, (int)pos.x + 2,  (int)pos.y - 5, Color.green, 1);
-		} else if (this.getHealth() > 30){
+		} else if (this.getHealth() > 20){
 			g.drawFillRect((int)this.getHealth() / 5, 3, (int)pos.x + 2,  (int)pos.y - 5, Color.orange, 1);
 		} else {
 			g.drawFillRect((int)this.getHealth() / 5, 3, (int)pos.x + 2,  (int)pos.y - 5, Color.red, 1);
 		}
+		
+		
 		super.paint(g);
 	}
 	
@@ -50,22 +55,39 @@ public class Enemy extends Character {
 		double angle = Math.atan2(target.getY(), target.getX() );
 		
 	
+		if (Math.random() > 0.7){
+			this.rotation = angle + 1.57;
+		}
 		
-		this.rotation = angle + 1.57;
-		
-		if (target.length() > 100){
-			this.moveForward(2);
-		} else {
+			if (target.length() > 100){
+				this.moveForward(2);
+			} else {
 			this.moveBackward(2);
-		}
+			}
 		
-		double rand = Math.random();
-		if (rand > 0.7){
-			this.fire();
-		}
+			double rand = Math.random();
+			
+			if (firePowerRemaining < 10){
+				if (rand > 0.9){
+					this.fire();
+				}
+			} else {
+				if (rand > 0.6){
+					this.fire();
+				}
+			}
+		
+			
 		
 		super.update();
 		
+	}
+	
+	public void fire(){
+		if (firePowerRemaining > 0){
+			this.map.addTemporaryMapEntity(new Projectile(this, 4, 1.0));
+			firePowerRemaining -= 2;
+		}
 	}
 	
 }

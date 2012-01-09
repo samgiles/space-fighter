@@ -52,7 +52,7 @@ public class KeyProcessor implements KeyListener {
 			up = true;
 		}
 		
-		if (e.getKeyCode() == KeyEvent.VK_SPACE){
+		if (e.getKeyCode() == KeyEvent.VK_CONTROL){
 			space = true;
 		}
 	}
@@ -76,7 +76,7 @@ public class KeyProcessor implements KeyListener {
 			up = false;
 		}
 		
-		if (e.getKeyCode() == KeyEvent.VK_SPACE){
+		if (e.getKeyCode() == KeyEvent.VK_CONTROL){
 			space = false;
 		}
 	}

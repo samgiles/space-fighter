@@ -86,6 +86,10 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 		temporaryEntities.add(entity);
 	}
 	
+	public void removeEntity(Entity entity){
+		mapEntities.remove(entity);
+	}
+	
 	public void update(){
 		
 		
@@ -124,7 +128,10 @@ public class Map implements java.io.Serializable, Drawable, Updateable{
 								continue;
 							} else {
 								if (collision instanceof Character){
-									((Character)collision).takeDamage(p.getOwner());
+									if (collision instanceof Enemy && p.getOwner() instanceof Enemy){
+										continue;
+									}
+									((Character)collision).takeDamage(p.getOwner(), p.getPower());
 									p.kill();
 								}
 							}

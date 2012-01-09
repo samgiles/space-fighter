@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
+import java.util.Date;
 
 import javax.swing.JApplet;
 import javax.vecmath.Vector2d;
@@ -64,17 +65,15 @@ public class Game extends JApplet implements Runnable{
 	 */
 	@Override
 	public void run() {
+		long lastDraw = 0; 
 		while (true) {
-			i++;
-			handleKeys();
-			world.update();
-			Camera.getCamera().update();
-			repaint();
-			
-			try {
-				mainThread.sleep(33); 
-			} catch(InterruptedException e){
-				// Swallow the interrupted exception.
+			long now = (long)(new Date().getTime());
+			if((now - lastDraw) > 30){
+				handleKeys();
+				world.update();
+				Camera.getCamera().update();
+				repaint();
+				lastDraw = now;
 			}
 		}
 	}
@@ -94,6 +93,11 @@ public class Game extends JApplet implements Runnable{
 
 	
 	private void handleKeys() {
+		
+		if (KeyBoardState.getProcessor().isSpace()){
+			world.getCharacter().fire();
+		}
+		
 		if (KeyBoardState.getProcessor().isLeft()){
 			world.getCharacter().rotate(-0.2);
 		}
@@ -107,12 +111,10 @@ public class Game extends JApplet implements Runnable{
 		}
 		
 		if (KeyBoardState.getProcessor().isDown()){
-			world.getCharacter().moveBackward(2);
+			world.getCharacter().moveBackward(1);
 		}
 		
-		if (KeyBoardState.getProcessor().isSpace()){
-			world.getCharacter().fire();
-		}
+		
 	}
 
 }
