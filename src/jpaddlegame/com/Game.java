@@ -19,6 +19,9 @@ import javax.vecmath.Vector2d;
 import org.w3c.dom.events.MouseEvent;
 
 import jpaddlegame.com.game.*;
+import jpaddlegame.com.hud.Control;
+import jpaddlegame.com.hud.ControlContainer;
+import jpaddlegame.com.hud.SimpleButton;
 /**
  * This is the entry
  * @author Sam
@@ -33,6 +36,8 @@ public class Game extends JApplet implements Runnable{
 	
 	private World world;
 	
+	private ControlContainer hud;
+	
 	/**
 	 * 
 	 * @throws HeadlessException
@@ -45,6 +50,46 @@ public class Game extends JApplet implements Runnable{
 	 * Start the game loop.
 	 */
 	public void start() {
+		hud = new ControlContainer(this);
+		
+		/**
+		 * test
+		 */
+		
+		Control button = new SimpleButton("Exit", 40, 100);
+		button.addClickListener(new jpaddlegame.com.hud.ClickListener() {
+
+			@Override
+			public void onMouseDown(java.awt.event.MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onMouseUp(java.awt.event.MouseEvent e) {
+			
+			}
+
+			@Override
+			public void onMouseOver(java.awt.event.MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onMouseOut(java.awt.event.MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onClick(java.awt.event.MouseEvent e) {
+				System.exit(0);
+				
+			}});
+		hud.addControl(button);
+		
+		
 		world = new World(this);
 		ClickListener listener = new ClickListener(world);
 		this.addKeyListener(KeyBoardState.getProcessor());
@@ -85,6 +130,7 @@ public class Game extends JApplet implements Runnable{
 		
 		
 		world.paint(drawer);
+		hud.paint(drawer);
 		
 		drawer.draw();
 		g.drawImage(backBuffer.getBackBuffer(), 0, 0, Color.black, null);

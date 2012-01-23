@@ -1,4 +1,4 @@
-package jpaddlegame.com.game;
+package jpaddlegame.com;
 
 public interface Updateable {
 	void update();

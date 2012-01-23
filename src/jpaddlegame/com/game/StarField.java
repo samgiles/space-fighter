@@ -9,6 +9,7 @@ import java.util.Random;
 import javax.vecmath.Vector2d;
 
 import jpaddlegame.com.BatchDrawer;
+import jpaddlegame.com.Drawable;
 
 public class StarField implements Drawable {
 

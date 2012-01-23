@@ -1,4 +1,4 @@
-package jpaddlegame.com.game;
+package jpaddlegame.com;
 import jpaddlegame.com.*;
 import java.awt.Graphics;
 

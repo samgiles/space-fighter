@@ -4,6 +4,8 @@
 package jpaddlegame.com.game;
 
 import jpaddlegame.com.BatchDrawer;
+import jpaddlegame.com.Drawable;
+import jpaddlegame.com.Updateable;
 import jpaddlegame.com.game.entities.Character;
 import jpaddlegame.com.game.entities.Enemy;
 import jpaddlegame.com.game.entities.Map;
