@@ -3,6 +3,7 @@ package jpaddlegame.com;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.image.BufferedImage;
 import java.beans.*;
 /**
  * A simple BackBuffer that is used to buffer the current frame before drawing to the main window.
@@ -48,6 +49,9 @@ public class BackBuffer {
 	public BackBuffer(Component owner) {
 		this.owner = owner;
 		setUpBackImage();
+		
+		BufferedImage img = (BufferedImage)offscreenImage;
+	 
 	}
 	
 	/**
