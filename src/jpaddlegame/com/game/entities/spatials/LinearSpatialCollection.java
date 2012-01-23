@@ -1,4 +1,4 @@
-package jpaddlegame.com.game;
+package jpaddlegame.com.game.entities.spatials;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+
 
 public class LinearSpatialCollection implements SpatialCollection {
 

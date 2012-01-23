@@ -1,8 +1,9 @@
-package jpaddlegame.com.game;
+package jpaddlegame.com.game.entities;
 
 import java.util.Date;
-
 import javax.vecmath.Vector2d;
+
+import jpaddlegame.com.game.TemporaryEntity;
 
 public class Projectile extends DynamicEntity implements TemporaryEntity {
 	private Character owner;

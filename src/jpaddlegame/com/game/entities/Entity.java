@@ -1,4 +1,4 @@
-package jpaddlegame.com.game;
+package jpaddlegame.com.game.entities;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -8,6 +8,11 @@ import java.io.Serializable;
 import javax.vecmath.Vector2d;
 
 import jpaddlegame.com.*;
+import jpaddlegame.com.game.Camera;
+import jpaddlegame.com.game.ContentStore;
+import jpaddlegame.com.game.Drawable;
+import jpaddlegame.com.game.Updateable;
+import jpaddlegame.com.game.entities.spatials.Spatial;
 
 public class Entity implements Serializable, Drawable, Spatial, Updateable{
 

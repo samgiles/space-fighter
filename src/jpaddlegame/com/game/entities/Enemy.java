@@ -1,10 +1,11 @@
-package jpaddlegame.com.game;
+package jpaddlegame.com.game.entities;
 
 import java.awt.Color;
 
 import javax.vecmath.Vector2d;
 
 import jpaddlegame.com.BatchDrawer;
+import jpaddlegame.com.game.Camera;
 
 public class Enemy extends Character {
 

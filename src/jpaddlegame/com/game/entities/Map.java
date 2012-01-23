@@ -1,4 +1,4 @@
-package jpaddlegame.com.game;
+package jpaddlegame.com.game.entities;
 
 import java.awt.Graphics;
 import java.beans.XMLDecoder;
@@ -9,6 +9,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import jpaddlegame.com.BatchDrawer;
+import jpaddlegame.com.game.Drawable;
+import jpaddlegame.com.game.StarField;
+import jpaddlegame.com.game.TemporaryEntity;
+import jpaddlegame.com.game.Updateable;
+import jpaddlegame.com.game.entities.spatials.LinearSpatialCollection;
+import jpaddlegame.com.game.entities.spatials.Spatial;
+import jpaddlegame.com.game.entities.spatials.SpatialCollection;
 
 public class Map implements java.io.Serializable, Drawable, Updateable{
 

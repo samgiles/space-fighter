@@ -1,8 +1,11 @@
-package jpaddlegame.com.game;
+package jpaddlegame.com.game.entities.spatials;
 
 import java.awt.Rectangle;
 
 import javax.vecmath.Vector2d;
+
+import jpaddlegame.com.game.Drawable;
+import jpaddlegame.com.game.Updateable;
 
 /**
  * Represents an object that takes up space in the World.

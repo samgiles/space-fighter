@@ -1,6 +1,7 @@
-package jpaddlegame.com.game;
+package jpaddlegame.com.game.entities;
 
 import javax.vecmath.Vector2d;
+
 
 public class DynamicEntity extends Entity {
 

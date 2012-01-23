@@ -1,8 +1,10 @@
-package jpaddlegame.com.game;
+package jpaddlegame.com.game.entities;
 
 import java.util.Date;
 
 import javax.vecmath.Vector2d;
+
+import jpaddlegame.com.game.Camera;
 
 public class Character extends DynamicEntity {
 	

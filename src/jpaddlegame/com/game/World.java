@@ -4,6 +4,9 @@
 package jpaddlegame.com.game;
 
 import jpaddlegame.com.BatchDrawer;
+import jpaddlegame.com.game.entities.Character;
+import jpaddlegame.com.game.entities.Enemy;
+import jpaddlegame.com.game.entities.Map;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -83,7 +86,7 @@ public class World implements Drawable, Updateable{
 		int tot = 0;
 		for(Iterator<Enemy> it = e.iterator(); it.hasNext();){
 			Character c = it.next();
-			tot += c.killCount;
+			tot += c.getKillCount();
 		}
 		return tot;
 	}

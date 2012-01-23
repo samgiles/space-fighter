@@ -1,6 +1,7 @@
 package jpaddlegame.com.game;
 
 import jpaddlegame.com.*;
+import jpaddlegame.com.game.entities.spatials.Spatial;
 
 import java.awt.Component;
 import java.awt.Dimension;

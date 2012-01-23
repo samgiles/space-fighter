@@ -1,4 +1,4 @@
-package jpaddlegame.com.game;
+package jpaddlegame.com.game.entities.spatials;
 
 import java.util.List;
 
